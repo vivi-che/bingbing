@@ -17,7 +17,7 @@ var div=document.getElementById('box');
 function insert(direction) {
         if(text.value==""){//如果输入框为空，按钮点击时，跳出提示框
             alert('请输入数字');
-            text.focus()
+            text.focus();
         }else if(isNaN(text.value)){//如果输入框为非数字，按钮点击时，跳出提示框
             alert('您输入的不是数字，请重新输入');
             text.value='';

@@ -1,22 +1,20 @@
 /*
-限制输入的数字在10-100
-队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
-队列展现方式变化如图，直接用高度表示数字大小
-实现一个简单的排序功能，如冒泡排序（不限制具体算法），用可视化的方法表达出来
+	将新元素输入框从input改为textarea
+	允许一次批量输入多个内容，格式可以为数字、中文、英文等，
+可以通过用回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等均可）等符号作为不同内容的间隔
+	增加一个查询文本输入框，和一个查询按钮，
+当点击查询时，将查询词在各个元素内容中做模糊匹配，将匹配到的内容进行特殊标识，如文字颜色等。
+举例，内容中有abcd，查询词为ab或bc，则该内容需要标识
 */
-var text=document.getElementsByTagName('input')[0];
+var text=document.getElementsByTagName('textarea')[0];
 var buttons=document.getElementsByTagName('button');
 var div=document.getElementById('box');
 //插入数字函数
 function insert(direction) {
         if(text.value==""){//如果输入框为空，按钮点击时，跳出提示框
-            alert('请输入数字');
+            alert('请输入数据');
             text.focus();
-        }else if(isNaN(text.value)){//如果输入框为非数字，按钮点击时，跳出提示框
-            alert('您输入的不是数字，请重新输入');
-            text.value='';
-            text.focus();       
-        }else if(text.value>=10||text.value<=100){//输入数字情况下
+        }else{
             divs=document.creatElement('div');
             divs.innerHTML=text.value;
             if(direction=="left"){
@@ -63,9 +61,29 @@ function sort(){
 	}
 	
 }
+//搜索函数
+function search(){
+	var search_value=document.getElementById('text_search').value;
+	if(search_value=""){
+		alert('请输入查询数据');
+		text.focus();
+	}else{
+		for (var i = 0; i < div.childNodes.length; i++) {
+			var divs_value=div.children[i].innerText;
+			if(div_value.indexOf(text)>-1){
+				div.children[i].style.backgroundColor="f00";
+				div.children[i].color="fff";
+			}else{
+				div.children[i].style.backgroundColor="fff";
+				div.children[i].color="f00";
+			}
+		}
+	}
+}
 buttons[0].onclick=insert("left");
 buttons[1].onclick=insert("right");
 buttons[2].onclick=delete(-1,"left");
 buttons[3].onclick=delete(-1,"right");
 buttons[4].onclick=sort();
+buttons[5].onclick=search();
 div.onclick=delete(event.target);
